@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PLAID_CONFIG } from 'src/config/config';
-import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
+import { Configuration, CountryCode, PlaidApi, PlaidEnvironments, Products } from 'plaid';
 
 @Injectable()
 export class PlaidService {
@@ -27,8 +27,8 @@ export class PlaidService {
       const response = await this.plaidClient.linkTokenCreate({
         user: { client_user_id: userId },
         client_name: 'PennyBuddy',
-        products: PLAID_CONFIG.plaidProducts,
-        country_codes: PLAID_CONFIG.plaidCountryCodes,
+        products: ['auth'] as Products[],
+        country_codes: ['US'] as CountryCode[],
         language: 'en',
       });
       console.log("Response :", response.data);
