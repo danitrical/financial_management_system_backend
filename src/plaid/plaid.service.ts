@@ -27,8 +27,8 @@ export class PlaidService {
       const response = await this.plaidClient.linkTokenCreate({
         user: { client_user_id: userId },
         client_name: 'PennyBuddy',
-        products: ['auth'] as Products[],
-        country_codes: ['US'] as CountryCode[],
+        products: PLAID_CONFIG.plaidProducts as unknown as Products[],
+        country_codes: PLAID_CONFIG.plaidCountryCodes as unknown as CountryCode[],
         language: 'en',
       });
       console.log("Response :", response.data);
