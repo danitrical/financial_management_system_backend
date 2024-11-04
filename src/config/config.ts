@@ -43,4 +43,11 @@ const SWAGGER_CONFIG = {
 
 const JWT_API_KEY = process.env['JWT_API_KEY'];
 
-export { DATABASECONFIG, SWAGGER_CONFIG, JWT_API_KEY };
+const PLAID_CONFIG = {
+  plaidClientKey : process.env['PLAID_CLIENT_ID'],
+  plaidSecretKey : process.env['PLAID_SECRET'],
+  plaidEnv : process.env['PLAID_ENV'],
+  plaidProducts : process.env['PLAID_PRODUCTS'],
+  plaidCountryCodes : process.env['PLAID_COUNTRY_CODES']
+}
+export { DATABASECONFIG, SWAGGER_CONFIG, JWT_API_KEY, PLAID_CONFIG };
