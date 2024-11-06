@@ -7,10 +7,11 @@ import { DatabaseModule } from './database/db.module';
 import { PlaidService } from './plaid/plaid.service';
 import { PlaidController } from './plaid/plaid.controller';
 import { PlaidModule } from './plaid/plaid.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   controllers: [AppController, PlaidController],
   providers: [AppService, PlaidService],
-  imports: [AuthModule, UsersModule, DatabaseModule, PlaidModule],
+  imports: [AuthModule, UsersModule, DatabaseModule, PlaidModule, AccountsModule],
 })
 export class AppModule {}
