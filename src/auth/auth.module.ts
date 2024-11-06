@@ -8,6 +8,7 @@ import { JWT_API_KEY } from 'src/config/config';
 import { UsersService } from 'src/users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from 'src/users/users.entity';
+import { PlaidService } from 'src/plaid/plaid.service';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { Users } from 'src/users/users.entity';
     }),
     TypeOrmModule.forFeature([Users]),
   ],
-  providers: [AuthService, JwtStrategy, UsersService],
+  providers: [AuthService, JwtStrategy, UsersService, PlaidService],
   controllers: [AuthController],
 })
 export class AuthModule {}
