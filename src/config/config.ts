@@ -40,7 +40,12 @@ const SWAGGER_CONFIG = {
   version: process.env['SWAGGER_VERSION'],
   tag: process.env['SWAGGER_TAG'],
 };
+const PLAID_CONFIG = {
+  ID: process.env['PLAID_ID'],
+  SECRET: process.env['PLAID_SECRET'],
+  ENV: process.env['PLAID_ENV'],
+};
 
 const JWT_API_KEY = process.env['JWT_API_KEY'];
 
-export { DATABASECONFIG, SWAGGER_CONFIG, JWT_API_KEY };
+export { DATABASECONFIG, SWAGGER_CONFIG, JWT_API_KEY, PLAID_CONFIG };
