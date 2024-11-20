@@ -54,9 +54,14 @@ export class PlaidService implements OnModuleInit {
   async getTransaction(publicToken: string) {
     try {
       const response = await this.plaidApiClient.transactionsGet({
-        public_token: publicToken,
+        access_token: publicToken,
+        start_date: '2023-04-14',
+        end_date: '2024-04-17',
+        options: {
+          offset: 0,
+        },
       });
-      return response;
+      return JSON.stringify(response.data);
     } catch (error) {
       return error;
     }

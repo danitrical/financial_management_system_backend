@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { PlaidService } from './plaid.service';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('plaid')
 export class PlaidController {
@@ -11,15 +12,17 @@ export class PlaidController {
   }
 
   @Post('exchange-token')
-  async exchangeToken(@Body('public_token') publicToken: string) {
+  @ApiBody({ schema: { properties: { public_token: { type: 'string' } } } })
+  async exchangeToken(@Body('public_token') public_token: string) {
     const accessToken =
-      await this.plaidService.exchangePublicToken(publicToken);
+      await this.plaidService.exchangePublicToken(public_token);
     return { access_token: accessToken };
   }
 
-  @Get('transactions')
-  async getTransaction(@Body('access_token') accessToken: string) {
-    const transactions = await this.plaidService.getTransaction(accessToken);
+  @Post('transactions')
+  @ApiBody({ schema: { properties: { access_token: { type: 'string' } } } })
+  async getTransaction(@Body('access_token') access_token: string) {
+    const transactions = await this.plaidService.getTransaction(access_token);
     return transactions;
   }
 }
