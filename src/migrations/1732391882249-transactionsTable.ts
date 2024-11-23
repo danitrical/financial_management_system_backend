@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class TransactionsPlaid1732349177366 implements MigrationInterface {
+export class TransactionsTable1732391882249 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`CREATE TABLE transactions (
             transaction_id VARCHAR(255) PRIMARY KEY,
-            user_id NUMBER, 
+            user_id int, 
             account_id VARCHAR(255) NOT NULL,
             amount DECIMAL(18, 2),
             authorized_date DATE,                           

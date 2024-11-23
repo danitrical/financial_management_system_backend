@@ -108,7 +108,6 @@ export class PlaidService implements OnModuleInit {
             throw new BadRequestException('Duplicate entry detected.');
           }
         }
-        throw error;
       }
 
       try {
@@ -127,7 +126,6 @@ export class PlaidService implements OnModuleInit {
             throw new BadRequestException('Duplicate entry detected.');
           }
         }
-        throw error;
       }
     }
 
@@ -155,7 +153,6 @@ export class PlaidService implements OnModuleInit {
             throw new BadRequestException('Duplicate entry detected.');
           }
         }
-        throw error;
       }
     }
   }
