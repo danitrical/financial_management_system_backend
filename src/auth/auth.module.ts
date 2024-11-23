@@ -10,7 +10,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from 'src/users/users.entity';
 import { PlaidService } from 'src/plaid/plaid.service';
 import { Account } from 'src/plaid/plaid.entity.account';
-import { Accounts } from 'src/accounts/accounts.entity';
 import { Balance } from 'src/plaid/plaid.entity.balance';
 import { Transactions } from 'src/plaid/plaid.entity.transaction';
 
@@ -21,7 +20,7 @@ import { Transactions } from 'src/plaid/plaid.entity.transaction';
       secret: JWT_API_KEY,
       signOptions: { expiresIn: '1d' },
     }),
-    TypeOrmModule.forFeature([Users, Account, Accounts, Balance, Transactions]),
+    TypeOrmModule.forFeature([Users, Account, Balance, Transactions]),
   ],
   providers: [AuthService, JwtStrategy, UsersService, PlaidService],
   controllers: [AuthController],
