@@ -7,13 +7,11 @@ import { DatabaseModule } from './database/db.module';
 import { PlaidService } from './plaid/plaid.service';
 import { PlaidController } from './plaid/plaid.controller';
 import { PlaidModule } from './plaid/plaid.module';
-import { AccountsModule } from './accounts/accounts.module';
 import { Balance } from './plaid/plaid.entity.balance';
 import { Account } from './plaid/plaid.entity.account';
 import { Transactions } from './plaid/plaid.entity.transaction';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './users/users.entity';
-import { Accounts } from './accounts/accounts.entity';
 
 @Module({
   controllers: [AppController, PlaidController],
@@ -23,8 +21,7 @@ import { Accounts } from './accounts/accounts.entity';
     UsersModule,
     DatabaseModule,
     PlaidModule,
-    AccountsModule,
-    TypeOrmModule.forFeature([Users, Balance, Account, Transactions, Accounts]),
+    TypeOrmModule.forFeature([Users, Balance, Account, Transactions]),
   ],
 })
 export class AppModule {}
