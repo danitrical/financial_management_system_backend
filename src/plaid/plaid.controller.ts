@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Param,
+} from '@nestjs/common';
 import { PlaidService } from './plaid.service';
 import { ApiBody } from '@nestjs/swagger';
 
@@ -20,9 +29,47 @@ export class PlaidController {
   }
 
   @Post('transactions')
-  @ApiBody({ schema: { properties: { access_token: { type: 'string' } } } })
-  async getTransaction(@Body('access_token') access_token: string) {
-    const transactions = await this.plaidService.getTransaction(access_token);
-    return transactions;
+  @ApiBody({
+    schema: {
+      properties: {
+        access_token: { type: 'string' },
+        userId: { type: 'number' },
+      },
+    },
+  })
+  async getTransaction(
+    @Body('access_token') access_token: string,
+    @Body('userId') userId: number,
+  ) {
+    try {
+      const transactions = await this.plaidService.getTransaction(
+        access_token,
+        userId,
+      );
+      return transactions;
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Failed to create balance',
+        error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Get('gets-balances/:user_id')
+  async getBalances(@Param('user_id') user_id: number) {
+    if (!user_id) {
+      throw new BadRequestException('User ID is required');
+    }
+    await this.plaidService.getBalances(user_id);
+    return await this.plaidService.getBalances(user_id);
+  }
+
+  @Get('gets-stored-transactions/:user_id')
+  async getStoredTransactions(@Param('user_id') user_id: number) {
+    if (!user_id) {
+      throw new BadRequestException('User ID is required');
+    }
+    await this.plaidService.getStoredTransactions(user_id);
+    return await this.plaidService.getStoredTransactions(user_id);
   }
 }

@@ -1,18 +1,24 @@
 import {
-  Column,
   Entity,
   PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Transactions } from './plaid.entity.transaction';
+import { Balance } from './plaid.entity.balance';
 
-@Entity('accounts')
-export class Accounts {
+@Entity('account')
+export class Account {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ unique: true })
   account_id: string;
+
+  @Column()
+  user_id: number;
 
   @Column()
   name: string;
@@ -26,12 +32,6 @@ export class Accounts {
   @Column()
   subtype: string;
 
-  @Column({ nullable: true })
-  verification_status: string;
-
-  @Column({ nullable: true })
-  class_type: string;
-
   @Column()
   institution_name: string;
 
@@ -43,4 +43,10 @@ export class Accounts {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Transactions, (transaction) => transaction.account)
+  transactions: Transactions[];
+
+  @OneToMany(() => Balance, (balance) => balance.account)
+  balances: Balance[];
 }
