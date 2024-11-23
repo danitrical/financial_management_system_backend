@@ -63,4 +63,13 @@ export class PlaidController {
     await this.plaidService.getBalances(user_id);
     return await this.plaidService.getBalances(user_id);
   }
+
+  @Get('gets-stored-transactions/:user_id')
+  async getStoredTransactions(@Param('user_id') user_id: number) {
+    if (!user_id) {
+      throw new BadRequestException('User ID is required');
+    }
+    await this.plaidService.getStoredTransactions(user_id);
+    return await this.plaidService.getStoredTransactions(user_id);
+  }
 }
