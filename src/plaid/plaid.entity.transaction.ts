@@ -49,6 +49,9 @@ export class Transactions {
   @Column({ name: 'user_id' })
   user_id: number;
 
+  @Column({ name: 'name'})
+  name: string;
+
   @ManyToOne(() => Account, (account) => account.transactions)
   @JoinColumn({ name: 'account_id' })
   account: Account;
