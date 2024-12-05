@@ -16,6 +16,7 @@ export class TransactionsTable1732391882249 implements MigrationInterface {
             payment_channel VARCHAR(20),
             transaction_type VARCHAR(15),                            
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            name VARCHAR(50),
             CONSTRAINT fk_transaction_account_id FOREIGN KEY (account_id) REFERENCES account(account_id)
         );
         `);

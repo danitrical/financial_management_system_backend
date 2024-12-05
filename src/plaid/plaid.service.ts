@@ -68,8 +68,8 @@ export class PlaidService implements OnModuleInit {
     try {
       const response = await this.plaidApiClient.transactionsGet({
         access_token: publicToken,
-        start_date: '2023-04-14', // need to change will be taking from request Body
-        end_date: '2024-11-23',
+        start_date: '2023-04-14',
+        end_date: new Date().toISOString().split('T')[0],
         options: {
           offset: 0,
         },
@@ -143,6 +143,7 @@ export class PlaidService implements OnModuleInit {
           merchant_name: transactionData.merchant_name,
           payment_channel: transactionData.payment_channel,
           transaction_type: transactionData.transaction_type,
+          name: transactionData.name,
           user_id: userId,
         });
         await this.transactionRepository.save(transactionEntity);
