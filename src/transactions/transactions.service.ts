@@ -56,7 +56,7 @@ export class TransactionsService {
         to_account.type === AccountType.DEPOSITORY &&
         to_account.subtype === AccountSubtype.CREDIT;
       // Manage Balance
-      if (fromBalance.available_balance > amount) {
+      if (fromBalance.available_balance >= amount) {
         fromBalance.available_balance =
           Number(fromBalance.available_balance) - amount;
         fromBalance.current_balance =
