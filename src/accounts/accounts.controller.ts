@@ -16,7 +16,7 @@ export class AccountsController {
     type: [Account],
   })
   async getAllAccounts(): Promise<Account[]> {
-    return this.accountService.getAllAccounts();
+    return await this.accountService.getAllAccounts();
   }
 
   @Get('user/:userId')

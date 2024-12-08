@@ -11,7 +11,13 @@ export class AccountsService {
   ) {}
 
   async getAllAccounts(): Promise<Account[]> {
-    return this.accountRepository.find();
+    try {
+      return await this.accountRepository.query(
+        'SELECT a.*, b.current_balance, b.available_balance FROM  account a LEFT JOIN balances b ON a.account_id = b.account_id',
+      );
+    } catch (err) {
+      return err;
+    }
   }
 
   async getAccountsByUserId(userId: number): Promise<Account[]> {
