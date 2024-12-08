@@ -6,8 +6,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Transactions } from './plaid.entity.transaction';
-import { Balance } from './plaid.entity.balance';
+import { Transactions } from '../plaid/plaid.entity.transaction';
+import { Balance } from '../plaid/plaid.entity.balance';
 
 @Entity('account')
 export class Account {

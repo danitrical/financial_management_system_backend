@@ -8,10 +8,11 @@ import { PlaidService } from './plaid/plaid.service';
 import { PlaidController } from './plaid/plaid.controller';
 import { PlaidModule } from './plaid/plaid.module';
 import { Balance } from './plaid/plaid.entity.balance';
-import { Account } from './plaid/plaid.entity.account';
+import { Account } from './accounts/accounts.entity';
 import { Transactions } from './plaid/plaid.entity.transaction';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './users/users.entity';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   controllers: [AppController, PlaidController],
@@ -22,6 +23,7 @@ import { Users } from './users/users.entity';
     DatabaseModule,
     PlaidModule,
     TypeOrmModule.forFeature([Users, Balance, Account, Transactions]),
+    AccountsModule,
   ],
 })
 export class AppModule {}
