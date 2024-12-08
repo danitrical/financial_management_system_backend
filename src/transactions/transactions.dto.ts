@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, ValidateNested, IsString } from 'class-validator';
+import { IsNumber, ValidateNested, IsString, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class AccountBodyDto {
@@ -22,13 +22,13 @@ export class TransactionDto {
   @Type(() => AccountBodyDto)
   from_account: AccountBodyDto;
 
-  @ApiProperty({ description: 'Receiver account details' })
-  @ValidateNested()
-  @Type(() => AccountBodyDto)
-  to_account: AccountBodyDto;
+  @ApiProperty({ description: 'Receiver account id' })
+  @IsString()
+  to_account_id: string;
 
   @ApiProperty({ description: 'Transaction amount', example: 250.75 })
   @IsNumber()
+  @Min(5, { message: 'Transaction amount must be 5 or more' })
   amount: number;
 
   @ApiProperty({ description: 'User Id', example: 1 })

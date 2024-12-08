@@ -5,6 +5,7 @@ import { Transactions } from 'src/plaid/plaid.entity.transaction';
 import { Repository, In } from 'typeorm';
 import { generateRandomUuid } from 'src/utils/uuid';
 import { TransactionDto } from './transactions.dto';
+import { AccountsService } from '../accounts/accounts.service';
 
 enum AccountType {
   DEPOSITORY = 'depository',
@@ -24,15 +25,16 @@ export class TransactionsService {
     private readonly transactionRepository: Repository<Transactions>,
     @InjectRepository(Balance)
     private readonly balanceRepository: Repository<Balance>,
+    private accountService: AccountsService,
   ) {}
 
   async processTransaction(data: TransactionDto) {
     try {
-      const { from_account, to_account, amount, user_id, category } = data;
+      const { from_account, to_account_id, amount, user_id, category } = data;
 
       const balances = await this.balanceRepository.find({
         where: {
-          account_id: In([from_account.accountId, to_account.accountId]),
+          account_id: In([from_account.accountId, to_account_id]),
         },
       });
 
@@ -45,7 +47,10 @@ export class TransactionsService {
       );
 
       const fromBalance: Balance = balanceByAccountId[from_account.accountId];
-      const toBalance: Balance = balanceByAccountId[to_account.accountId];
+      const toBalance: Balance = balanceByAccountId[to_account_id];
+
+      const to_account =
+        await this.accountService.getAccountByAccountId(to_account_id);
 
       const isToCreditCard =
         to_account.type === AccountType.DEPOSITORY &&
@@ -78,7 +83,7 @@ export class TransactionsService {
       const fromTransaction: Transactions = {
         account_id: from_account.accountId,
         amount: -amount,
-        merchant_entity_id: to_account.accountId,
+        merchant_entity_id: to_account.account_id,
         authorized_date: new Date(),
         currency: 'USD',
         transaction_id: generateRandomUuid(),
@@ -86,7 +91,7 @@ export class TransactionsService {
         category: category,
       } as Transactions;
       const toTransaction: Transactions = {
-        account_id: to_account.accountId,
+        account_id: to_account.account_id,
         amount: amount,
         merchant_entity_id: from_account.accountId,
         authorized_date: new Date(),

@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from 'src/accounts/accounts.entity';
 import { Balance } from 'src/plaid/plaid.entity.balance';
 import { Transactions } from 'src/plaid/plaid.entity.transaction';
+import { AccountsService } from 'src/accounts/accounts.service';
 
 @Module({
-  providers: [TransactionsService],
+  providers: [TransactionsService, AccountsService],
   controllers: [TransactionsController],
   imports: [TypeOrmModule.forFeature([Account, Balance, Transactions])],
 })
