@@ -30,7 +30,8 @@ export class TransactionsService {
 
   async processTransaction(data: TransactionDto) {
     try {
-      const { from_account, to_account_id, amount, user_id, category } = data;
+      const { from_account, to_account_id, amount, user_id, category, name } =
+        data;
 
       const balances = await this.balanceRepository.find({
         where: {
@@ -87,8 +88,9 @@ export class TransactionsService {
         authorized_date: new Date(),
         currency: 'USD',
         transaction_id: generateRandomUuid(),
-        user_id: user_id,
-        category: category,
+        user_id,
+        category,
+        name,
       } as Transactions;
       const toTransaction: Transactions = {
         account_id: to_account.account_id,
@@ -97,8 +99,9 @@ export class TransactionsService {
         authorized_date: new Date(),
         currency: 'USD',
         transaction_id: generateRandomUuid(),
-        user_id: user_id,
-        category: category,
+        user_id,
+        category,
+        name,
       } as Transactions;
       await this.transactionRepository.save([fromTransaction, toTransaction]);
 

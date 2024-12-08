@@ -41,4 +41,11 @@ export class TransactionDto {
   })
   @IsString()
   category: string;
+
+  @ApiProperty({
+    description: 'Transaction Details',
+    example: 'Starbucks, Uber',
+  })
+  @IsString()
+  name: string;
 }
