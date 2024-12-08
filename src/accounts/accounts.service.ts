@@ -21,9 +21,9 @@ export class AccountsService {
   }
 
   async getAccountsByUserId(userId: number): Promise<Account[]> {
-    return this.accountRepository.find({
-      where: { user_id: userId },
-    });
+    return await this.accountRepository.query(
+      `SELECT a.*, b.current_balance, b.available_balance FROM  account a LEFT JOIN balances b ON a.account_id = b.account_id where user_id = ${userId}`,
+    );
   }
 
   async getAccountByAccountId(accountId: string): Promise<Account> {
