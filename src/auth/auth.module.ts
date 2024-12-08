@@ -9,7 +9,7 @@ import { UsersService } from 'src/users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from 'src/users/users.entity';
 import { PlaidService } from 'src/plaid/plaid.service';
-import { Account } from 'src/plaid/plaid.entity.account';
+import { Account } from 'src/accounts/accounts.entity';
 import { Balance } from 'src/plaid/plaid.entity.balance';
 import { Transactions } from 'src/plaid/plaid.entity.transaction';
 

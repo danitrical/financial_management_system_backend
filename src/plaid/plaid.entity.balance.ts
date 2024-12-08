@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Account } from './plaid.entity.account';
+import { Account } from '../accounts/accounts.entity';
 
 @Entity('balances')
 export class Balance {
