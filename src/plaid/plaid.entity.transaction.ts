@@ -6,7 +6,7 @@ import {
   PrimaryColumn,
   JoinColumn,
 } from 'typeorm';
-import { Account } from './plaid.entity.account';
+import { Account } from '../accounts/accounts.entity';
 
 @Entity('transactions')
 export class Transactions {
@@ -49,7 +49,7 @@ export class Transactions {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @Column({ name: 'name'})
+  @Column({ name: 'name' })
   name: string;
 
   @ManyToOne(() => Account, (account) => account.transactions)
