@@ -2,10 +2,11 @@ import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 import { PLAID_CONFIG } from 'src/config/config';
 import { QueryFailedError, Repository, DataSource } from 'typeorm';
-import { Account } from './plaid.entity.account';
+import { Account } from '../accounts/accounts.entity';
 import { Balance } from './plaid.entity.balance';
 import { Transactions } from './plaid.entity.transaction';
 import { InjectRepository } from '@nestjs/typeorm';
+import { convertDateFromTZ } from 'src/utils/date';
 
 @Injectable()
 export class PlaidService implements OnModuleInit {
@@ -64,12 +65,17 @@ export class PlaidService implements OnModuleInit {
     }
   }
 
-  async getTransaction(publicToken: string, userId: number) {
+  async getTransaction(
+    publicToken: string,
+    userId: number,
+    to: Date = new Date('2023-04-14'),
+    from: Date = new Date(),
+  ) {
     try {
       const response = await this.plaidApiClient.transactionsGet({
         access_token: publicToken,
-        start_date: '2023-04-14',
-        end_date: new Date().toISOString().split('T')[0],
+        start_date: convertDateFromTZ(to),
+        end_date: convertDateFromTZ(from),
         options: {
           offset: 0,
         },

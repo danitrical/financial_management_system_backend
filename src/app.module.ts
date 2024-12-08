@@ -12,6 +12,7 @@ import { Account } from './accounts/accounts.entity';
 import { Transactions } from './plaid/plaid.entity.transaction';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './users/users.entity';
+import { TransactionsModule } from './transactions/transactions.module';
 import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
@@ -23,6 +24,7 @@ import { AccountsModule } from './accounts/accounts.module';
     DatabaseModule,
     PlaidModule,
     TypeOrmModule.forFeature([Users, Balance, Account, Transactions]),
+    TransactionsModule,
     AccountsModule,
   ],
 })
