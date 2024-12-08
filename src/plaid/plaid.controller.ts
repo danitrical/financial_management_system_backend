@@ -69,7 +69,6 @@ export class PlaidController {
     if (!user_id) {
       throw new BadRequestException('User ID is required');
     }
-    await this.plaidService.getStoredTransactions(user_id);
     return await this.plaidService.getStoredTransactions(user_id);
   }
 }

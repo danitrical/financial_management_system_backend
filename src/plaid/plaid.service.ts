@@ -185,26 +185,9 @@ export class PlaidService implements OnModuleInit {
   }
 
   async getStoredTransactions(user_id: number) {
-    const query = this.transactionRepository
-      .createQueryBuilder('t')
-      .innerJoin('users', 'u', 't.user_id = u.id')
-      .where('u.id = :user_id', { user_id })
-      .select([
-        'u.id AS user_id',
-        'u.first_name AS user_name',
-        't.transaction_id AS transaction_id',
-        't.account_id AS account_id',
-        't.amount AS amount',
-        't.authorized_date AS authorized_date',
-        't.currency AS currency',
-        't.category_id AS category_id',
-        't.category AS category',
-        't.merchant_entity_id AS merchant_entity_id',
-        't.merchant_name AS merchant_name',
-        't.payment_channel AS payment_channel',
-        't.transaction_type AS transaction_type',
-        't.created_at AS created_at',
-      ]);
-    return await query.getRawMany();
+    return await this.transactionRepository.find({
+      where: { user_id },
+      order: { created_at: 'DESC' },
+    });
   }
 }
