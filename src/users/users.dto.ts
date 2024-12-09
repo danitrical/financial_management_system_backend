@@ -4,6 +4,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { PrimaryGeneratedColumn } from 'typeorm';
@@ -38,8 +39,8 @@ export class UserDto {
   zipcode: number;
 
   @ApiProperty({})
+  @IsOptional()
   @IsDate()
-  @IsNotEmpty()
   dob: Date;
 
   @ApiProperty({})

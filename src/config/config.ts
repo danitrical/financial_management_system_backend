@@ -26,6 +26,7 @@ const DATABASECONFIG: TypeOrmModuleOptions = {
   synchronize: false,
   logging: true,
   migrations: ['dist/migrations/*{.ts,.js}'],
+  ssl: process.env['DB_SSL'] === 'true' ? { rejectUnauthorized: false } : false,
   // ssl: ssl,
   extra: {
     max: 20,
